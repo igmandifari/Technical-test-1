@@ -6,6 +6,7 @@ import com.igman.technicaltest.dto.response.CustomerResponse;
 import com.igman.technicaltest.entity.Customer;
 import com.igman.technicaltest.entity.UserCredential;
 import com.igman.technicaltest.repository.CustomerRepository;
+import com.igman.technicaltest.repository.repositoryImpl.CustomerRepositoryImpl;
 import com.igman.technicaltest.service.CustomerService;
 import com.igman.technicaltest.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ import java.lang.reflect.Field;
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
+    private final CustomerRepositoryImpl customerRepositoryImpl;
     private final ValidationUtil validationUtil;
     @Override
     public CustomerResponse create(CustomerRequest request) {
@@ -40,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
                     .phoneNumber(request.getPhoneNumber())
                     .userCredential(userCredential)
                     .build();
-            customerRepository.saveAndFlush(customer);
+            customerRepositoryImpl.create(customer);
             return mapToResponse(customer);
         } catch (DataIntegrityViolationException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "phone number already exist");

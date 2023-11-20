@@ -10,6 +10,7 @@ import com.igman.technicaltest.service.CustomerService;
 import com.igman.technicaltest.service.TransactionService;
 import com.igman.technicaltest.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
