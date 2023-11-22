@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+
 
 @Data
 @AllArgsConstructor
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 public class TransactionResponse {
     private String transactionId;
-    private LocalDateTime transactionDate;
+    private String transactionDate;
     private BigDecimal amount;
     private TransactionType transactionType;
 }

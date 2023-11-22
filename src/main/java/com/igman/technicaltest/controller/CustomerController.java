@@ -2,6 +2,7 @@ package com.igman.technicaltest.controller;
 
 import com.igman.technicaltest.dto.request.customer.CustomerRequest;
 import com.igman.technicaltest.dto.request.customer.SearchCustomerRequest;
+import com.igman.technicaltest.dto.request.customer.UpdateCustomerRequest;
 import com.igman.technicaltest.dto.response.CommonResponse;
 import com.igman.technicaltest.dto.response.CustomerResponse;
 import com.igman.technicaltest.dto.response.PagingResponse;
@@ -80,6 +81,19 @@ public class CustomerController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateCustomer(@RequestBody UpdateCustomerRequest request) {
+        CustomerResponse customerResponse = customerService.update(request);
+        CommonResponse<CustomerResponse> response = CommonResponse.<CustomerResponse>builder()
+                .message("successfully update customer")
+                .statusCode(HttpStatus.OK.value())
+                .data(customerResponse)
+                .build();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
     }
 
 }

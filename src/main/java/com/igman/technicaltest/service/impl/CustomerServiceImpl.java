@@ -2,6 +2,7 @@ package com.igman.technicaltest.service.impl;
 
 import com.igman.technicaltest.dto.request.customer.CustomerRequest;
 import com.igman.technicaltest.dto.request.customer.SearchCustomerRequest;
+import com.igman.technicaltest.dto.request.customer.UpdateCustomerRequest;
 import com.igman.technicaltest.dto.response.CustomerResponse;
 import com.igman.technicaltest.entity.Customer;
 import com.igman.technicaltest.entity.UserCredential;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.lang.reflect.Field;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -77,6 +79,28 @@ public class CustomerServiceImpl implements CustomerService {
                     return customer;
                 })
                 .orElse(null);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public CustomerResponse update(UpdateCustomerRequest request) {
+        try {
+            validationUtil.validate(request);
+            Customer currentCustomer = findByIdOrThrowNotFound(request.getId());
+            currentCustomer.setName(request.getName());
+            currentCustomer.setPin(request.getPin());
+            currentCustomer.setPhoneNumber(request.getPhoneNumber());
+            currentCustomer.setAddress(request.getAddress());
+            customerRepository.saveAndFlush(currentCustomer);
+            return mapToResponse(currentCustomer);
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "phone number already exist");
+        }
+    }
+
+    private Customer findByIdOrThrowNotFound(String id) {
+        Optional<Customer> customer = customerRepository.findById(id);
+        return customer.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "customer not found"));
     }
 
     @Override

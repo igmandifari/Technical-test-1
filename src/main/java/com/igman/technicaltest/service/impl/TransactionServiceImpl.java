@@ -66,7 +66,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         TransactionResponse transactionResponse = new TransactionResponse();
         transactionResponse.setTransactionId(savedTransaction.getId());
-        transactionResponse.setTransactionDate(savedTransaction.getTimestamp());
+        transactionResponse.setTransactionDate(String.valueOf(savedTransaction.getTimestamp()));
         transactionResponse.setAmount(savedTransaction.getAmount());
         transactionResponse.setTransactionType(savedTransaction.getTransactionType());
 
@@ -90,7 +90,7 @@ public class TransactionServiceImpl implements TransactionService {
     private TransactionResponse mapTransactionToResponse(Transaction transaction) {
         TransactionResponse response = new TransactionResponse();
         response.setTransactionId(transaction.getId());
-        response.setTransactionDate(transaction.getTimestamp());
+        response.setTransactionDate(String.valueOf(transaction.getTimestamp()));
         response.setAmount(transaction.getAmount());
         response.setTransactionType(transaction.getTransactionType());
         return response;
