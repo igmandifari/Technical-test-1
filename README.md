@@ -5,6 +5,11 @@ spring boot membuat app bank mini,lingkup project:
 3. simpan uang
 4. tarik uang
 
+Ada 2 Jenis transaksi, WITHDRAW dan DEPOSIT,untuk TRANSFER (Soon)
+
+- full documentasi
+   ![GitHub Logo](https://github.com/igmandifari/Technical-test-1/blob/master/swagger.png?raw=true)
+  
 - login/masukan pin
  ![GitHub Logo](https://github.com/igmandifari/Technical-test-1/blob/master/login.png?raw=true)
   
